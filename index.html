@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Secure File Vault</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #00ff99;
+    }
+    textarea {
+      width: 300px;
+      height: 100px;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: none;
+      margin-bottom: 15px;
+      resize: none;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #00ff99;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #121212;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #00cc77;
+    }
+    .output {
+      margin-top: 20px;
+      width: 320px;
+      background-color: #222;
+      padding: 15px;
+      border-radius: 5px;
+      min-height: 50px;
+      word-wrap: break-word;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>Secure File Vault</h1>
+  <textarea id="inputData" placeholder="Enter text to encrypt"></textarea>
+  <button onclick="encryptData()">Encrypt & Save</button>
+
+  <div class="output" id="outputData"></div>
+
+  <script>
+    // Simple XOR encryption in JS for demo (key = 'K')
+    function xorEncryptDecrypt(str, key) {
+      let result = '';
+      for (let i = 0; i < str.length; i++) {
+        result += String.fromCharCode(str.charCodeAt(i) ^ key.charCodeAt(0));
+      }
+      return result;
+    }
+
+    function encryptData() {
+      const input = document.getElementById('inputData').value;
+      if (!input) {
+        alert('Please enter some text!');
+        return;
+      }
+      const key = 'K';
+      const encrypted = xorEncryptDecrypt(input, key);
+
+      // For demo, we just show encrypted & decrypted data on page
+      const decrypted = xorEncryptDecrypt(encrypted, key);
+
+      document.getElementById('outputData').innerHTML =
+        `<strong>Encrypted:</strong> ${btoa(encrypted)}<br/><br/>` +
+        `<strong>Decrypted:</strong> ${decrypted}`;
+    }
+  </script>
+</body>
+</html>
